@@ -4,6 +4,7 @@ on:
 jobs:
   build:
     runs-on: self
+    container: ubuntu:latest
     steps:
       - name: checking version
         run: docker version
