@@ -4,10 +4,9 @@ on:
 jobs:
   build:
     runs-on: self
-    container: node:16
     steps:
       - name: checking version
-        run: docker version
+        run: sudo docker version
       - name: echo
         run: echo "passed"
      
