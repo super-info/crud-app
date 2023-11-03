@@ -4,7 +4,7 @@ on:
 jobs:
   build:
     runs-on: self
-    container: ubuntu:latest
+    container: node:16
     steps:
       - name: checking version
         run: docker version
