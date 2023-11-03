@@ -10,8 +10,8 @@
 	</parent>
 	<groupId>net.javaguides</groupId>
 	<artifactId>springboot-thymeleaf-crud-web-app</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>springboot-thymeleaf-crud-web-app</name>
+	<version>1.0.0</version>
+	<name>crud-app</name>
 	<description>Demo project for Spring Boot and thymeleaf</description>
 
 	<properties>
