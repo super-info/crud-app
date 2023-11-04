@@ -17,9 +17,19 @@ jobs:
         run: echo "test=hello-world" >> $GITHUB_OUTPUT
       - name: output
         run: echo "${{ toJSON(github) }}"
+      - name: Cache
+        uses: actions/cache@v3.3.2
+        with:
+          path: node_modules
+          key: node_modules-${{ hashFile()}}
   test:
     runs-on: self
     needs: build
     steps:
       - name: info
         run: echo ${{needs.build.outputs.file1}}
+      - name: display
+        id: show
+        run: echo "speed=fast"
+      - name: out
+        run: echo ${{steps.show.outputs.speed}}
