@@ -12,5 +12,5 @@ jobs:
           ls -la
           echo "passed"
       - name: output
-        run: echo "${{ toJSON(github) }}
+        run: echo "${{ toJSON(github) }}"
      
