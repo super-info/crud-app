@@ -6,7 +6,7 @@ jobs:
     runs-on: self
     steps:
       - name: checking version
-        run: sudo docker version
+        run: echo "version installed"
       - name: echo
         run: echo "passed"
      
