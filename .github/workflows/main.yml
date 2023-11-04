@@ -4,6 +4,8 @@ on:
 jobs:
   build:
     runs-on: self
+    outputs:
+      file1: ${{ steps.pub.outputs.test}}
     steps:
       - name: Checkout
         uses: actions/checkout@v4.1.1
@@ -11,6 +13,13 @@ jobs:
         run: |
           ls -la
           echo "passed"
+      - id: pub
+        run: echo "test=hello-world" >> $GITHUB_OUTPUT
       - name: output
         run: echo "${{ toJSON(github) }}"
-     
+  test:
+    runs-on: self
+    needs: build
+    steps:
+      - name: info
+        run: echo ${{needs.build.outputs.file1}}
