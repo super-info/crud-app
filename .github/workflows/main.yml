@@ -24,13 +24,15 @@ jobs:
           else
           apt install openjdk-17-jdk openjdk-17-jre -y
           fi
-      - name: package
+      - name: installing maven
         run: |
           if [ $(mvn version) == exit 0]; then
           echo "maven installed"
           else
           apt install maven -y
           fi
+      - name: package
+        run: mvn clean package
   test:
     runs-on: self
     needs: build
