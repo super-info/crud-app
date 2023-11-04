@@ -21,6 +21,7 @@ jobs:
         run: |
           mvn -version
           java -version
+          mvn clean package
   test:
     runs-on: self
     needs: build
