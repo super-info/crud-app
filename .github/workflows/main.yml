@@ -19,6 +19,7 @@ jobs:
         run: echo "${{ toJSON(github) }}"i
       - name: package
         run: |
+          apt-get purge maven -y
           mvn -version
           java -version
           mvn clean package
