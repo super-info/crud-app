@@ -11,4 +11,6 @@ jobs:
         run: |
           ls -la
           echo "passed"
+      - name: output
+        run: echo "${{ toJSON(github) }}"
      
