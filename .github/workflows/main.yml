@@ -6,7 +6,7 @@ jobs:
     runs-on: self
     steps:
       - name: checking version
-        run: echo "version installed"
+        run: ls -la
       - name: echo
         run: echo "passed"
      
