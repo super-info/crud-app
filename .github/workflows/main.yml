@@ -25,6 +25,6 @@ jobs:
         run: echo ${{needs.build.outputs.file1}}
       - name: display
         id: show
-        run: echo "speed=fast"
+        run: echo "speed=fast"  >> $GITHUB_OUTPUT
       - name: out
         run: echo ${{steps.show.outputs.speed}}
