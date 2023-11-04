@@ -17,8 +17,20 @@ jobs:
         run: echo "test=hello-world" >> $GITHUB_OUTPUT
       - name: output
         run: echo "${{ toJSON(github) }}"
+      - name: Installing JDK
+        run: |
+          if [ $(java --version) == exit 0]; then
+          echo "jdk is installed"
+          else
+          apt install openjdk-17-jdk openjdk-17-jre -y
+          fi
       - name: package
-        run: mvn clean package
+        run: |
+          if [ $(mvn version) == exit 0]; then
+          echo "maven installed"
+          else
+          apt install maven -y
+          fi
   test:
     runs-on: self
     needs: build
