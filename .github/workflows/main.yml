@@ -19,9 +19,6 @@ jobs:
         run: echo "${{ toJSON(github) }}"i
       - name: package
         run: |
-          java -version
-          apt update
-          apt install maven -y
           mvn -version
           mvn clean package
   test:
