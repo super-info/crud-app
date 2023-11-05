@@ -7,6 +7,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      checks: write
+      pull-requests: write
     outputs:
       file1: ${{ steps.pub.outputs.test}}
     steps:
