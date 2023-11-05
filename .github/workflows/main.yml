@@ -23,6 +23,7 @@ jobs:
         uses: GitGuardian/ggshield-action@v1.20.0
         with:
           args: |
+            ggshield secret scan repo ./
             --o ./
             --json
         env: 
