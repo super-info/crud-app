@@ -18,7 +18,7 @@ jobs:
       - name: output
         run: echo "${{ toJSON(github) }}"i
   test:
-    runs-on: self
+    runs-on: self-hosted
     needs: build
     steps:
       - name: info
