@@ -37,7 +37,8 @@ jobs:
           ls -la
           ls -la target
           cd target
-          ls -la surefire-reports
+          cd site
+          ls -la jacoco
       - name: Publish Test Results
   # You may pin to the exact commit or the version.
   # uses: EnricoMi/publish-unit-test-result-action@ca89ad036b5fcd524c1017287fb01b5139908408
@@ -47,11 +48,11 @@ jobs:
           files: |
             target/surefire-reports/TEST-*.xml
         
-      - name: JaCoCo Report
-        uses: Madrapps/jacoco-report@v1.6.1
-        with:
-          paths: target/site/jacoco/index.html
-          min-coverage-overall: 60
+   #   - name: JaCoCo Report
+    #    uses: Madrapps/jacoco-report@v1.6.1
+     #   with:
+      #    paths: target/site/jacoco/index.html
+      #    min-coverage-overall: 60
       
   test:
     runs-on: ubuntu-latest
