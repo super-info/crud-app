@@ -17,10 +17,6 @@ jobs:
         run: echo "test=hello-world" >> $GITHUB_OUTPUT
       - name: output
         run: echo "${{ toJSON(github) }}"i
-      - name: package
-        run: |
-          mvn -version
-          mvn clean package
   test:
     runs-on: self
     needs: build
