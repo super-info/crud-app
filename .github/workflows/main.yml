@@ -34,6 +34,7 @@ jobs:
       - name: unit-test
         run: | 
           mvn test
+          ls -la
           ls -la target
           cd target
           ls -la surefire-reports
@@ -45,6 +46,7 @@ jobs:
           comment_mode: off
           files: |
             target/surefire-reports/TEST-*.xml
+      
       
   test:
     runs-on: ubuntu-latest
