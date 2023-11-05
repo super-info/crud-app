@@ -19,11 +19,12 @@ jobs:
         run: |
           ls -la
           echo "passed"
+      - name: uni
+        run: pipx install ggshield
       - name: GitGuardian Shield Action
         uses: GitGuardian/ggshield-action@v1.20.0
         env: 
           GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
-    # Arguments to pass to `ggshield secret scan ci`.
       - name: ssecret check
         run: |
           ggshield secret scan path ./
