@@ -40,3 +40,5 @@ jobs:
         run: echo "speed=fast"  >> $GITHUB_OUTPUT
       - name: out
         run: echo ${{steps.show.outputs.speed}}
+      - name: checking
+        run: ls -la
