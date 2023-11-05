@@ -46,7 +46,12 @@ jobs:
           comment_mode: off
           files: |
             target/surefire-reports/TEST-*.xml
-      
+        
+      - name: JaCoCo Report
+        uses: Madrapps/jacoco-report@v1.6.1
+        with:
+          paths: target/site/jacoco/index.html
+          min-coverage-overall: 60
       
   test:
     runs-on: ubuntu-latest
