@@ -29,6 +29,8 @@ jobs:
         run: mvn clean package
       - name: file check
         run: ls -la
+      - name: unit-test
+        run: mvn test
   test:
     runs-on: ubuntu-latest
     needs: build
