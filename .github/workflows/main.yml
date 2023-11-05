@@ -48,7 +48,6 @@ jobs:
           comment_mode: off
           files: | 
             target/surefire-reports/TEST-*.xml
-            target/site/jacoco/jacoco.xml
         
     #  - name: JaCoCo Report
     #    uses: Madrapps/jacoco-report@v1.6.1
