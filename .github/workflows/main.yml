@@ -27,6 +27,8 @@ jobs:
           java-version: '17'
       - name: package
         run: mvn clean package
+      - name: file check
+        run: ls -la
   test:
     runs-on: ubuntu-latest
     needs: build
