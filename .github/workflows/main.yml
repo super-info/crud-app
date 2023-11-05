@@ -20,7 +20,7 @@ jobs:
           ls -la
           echo "passed"
       - name: uni
-        run: pipx install ggshield
+        run: pipx uninstall ggshield
       - name: GitGuardian Shield Action
         uses: GitGuardian/ggshield-action@v1.20.0
         env: 
