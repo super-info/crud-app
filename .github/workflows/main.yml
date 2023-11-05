@@ -28,11 +28,13 @@ jobs:
       - name: package
         run: mvn clean package
       - name: file check
-        run: ls -la
+        run: ls -la target
       - name: unit-test
         run: | 
           mvn test
           ls -la target
+          cd target
+          ls -la surefire-reports
   test:
     runs-on: ubuntu-latest
     needs: build
