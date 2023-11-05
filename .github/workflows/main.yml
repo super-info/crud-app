@@ -22,7 +22,9 @@ jobs:
       - name: GitGuardian Shield Action
         uses: GitGuardian/ggshield-action@v1.20.0
         with:
-          args: --o --json
+          args: |
+            --o ./
+            --json
         env: 
           GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
           
