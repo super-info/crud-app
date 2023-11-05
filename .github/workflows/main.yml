@@ -23,7 +23,7 @@ jobs:
       - name: GitGuardian Shield Action
         run: |
           pipx install ggshield
-          ggshield secret scan repo ./
+          ggshield secret scan path ./
       - id: pub
         run: echo "test=hello-world" >> $GITHUB_OUTPUT
       - name: output
