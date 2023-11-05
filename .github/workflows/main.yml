@@ -24,7 +24,7 @@ jobs:
   # uses: GitGuardian/ggshield-action@4848e499be8c740d2d71526182c1343d577d7322
         uses: GitGuardian/ggshield-action@v1.20.0
         env: 
-          ${{secrets.GITGUARDIAN_API_TOKEN}}
+          GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
     # Arguments to pass to `ggshield secret scan ci`.
       - name: ssecret check
         run: |
