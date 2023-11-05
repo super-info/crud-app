@@ -5,6 +5,7 @@ on:
 env:
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
+  GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,8 +21,6 @@ jobs:
           ls -la
           echo "passed"
       - name: GitGuardian Shield Action
-        env: 
-          GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
         run: |
           pipx install ggshield
           ggshield secret scan repo ./
