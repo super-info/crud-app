@@ -5,7 +5,7 @@ on:
 env:
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
-  GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
+  GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 jobs:
   build:
     runs-on: ubuntu-latest
