@@ -3,7 +3,7 @@ on:
   workflow_dispatch
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     outputs:
       file1: ${{ steps.pub.outputs.test}}
     steps:
@@ -20,7 +20,7 @@ jobs:
       - name: package
         run: mvn clean package
   test:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
     steps:
       - name: info
