@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>net.javaguides</groupId>
-	<artifactId>springboot-thymeleaf-crud-web-app</artifactId>
+	<artifactId>crud-app</artifactId>
 	<version>1.0.0</version>
 	<name>crud-app</name>
 	<description>Demo project for Spring Boot and thymeleaf</description>
