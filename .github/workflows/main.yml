@@ -1,5 +1,7 @@
+#Springboot-jdk-17
 name: main-workflow
-on: [workflow_dispatch, push]
+on: 
+  workflow_dispatch
 env:
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
@@ -44,14 +46,16 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with:
           comment_mode: off
-          files: target/surefire-reports/TEST-*.xml
+          files: | 
+            target/surefire-reports/TEST-*.xml
+            target/site/jacoco/jacoco.xml
         
-      - name: JaCoCo Report
-        uses: Madrapps/jacoco-report@v1.6.1
-        with:
-          paths: target/site/jacoco/jacoco.xml
-          token: ${{secrets.TOKEN_REPO}}
-          min-coverage-overall: 60
+    #  - name: JaCoCo Report
+    #    uses: Madrapps/jacoco-report@v1.6.1
+    #    with:
+    #      paths: target/site/jacoco/jacoco.xml
+    #      token: ${{secrets.TOKEN_REPO}}
+    #      min-coverage-overall: 60
       
   test:
     runs-on: ubuntu-latest
