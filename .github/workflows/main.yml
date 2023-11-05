@@ -20,8 +20,6 @@ jobs:
           ls -la
           echo "passed"
       - name: GitGuardian Shield Action
-  # You may pin to the exact commit or the version.
-  # uses: GitGuardian/ggshield-action@4848e499be8c740d2d71526182c1343d577d7322
         uses: GitGuardian/ggshield-action@v1.20.0
         env: 
           GITGUARDIAN_API_TOKEN: ${{ secrets.GITGUARDIAN_API_TOKEN }}
