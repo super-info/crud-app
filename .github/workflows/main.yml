@@ -45,14 +45,14 @@ jobs:
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with:
           comment_mode: off
-          files: |
-            target/surefire-reports/TEST-*.xml
+          files: target/surefire-reports/TEST-*.xml
         
-   #   - name: JaCoCo Report
-    #    uses: Madrapps/jacoco-report@v1.6.1
-     #   with:
-      #    paths: target/site/jacoco/index.html
-      #    min-coverage-overall: 60
+      - name: JaCoCo Report
+        uses: Madrapps/jacoco-report@v1.6.1
+        with:
+          paths: target/site/jacoco/jacoco.xml
+          token: ${{secrets.TOKEN_REPO}}
+          min-coverage-overall: 60
       
   test:
     runs-on: ubuntu-latest
