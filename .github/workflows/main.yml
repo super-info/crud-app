@@ -24,7 +24,7 @@ jobs:
   # uses: GitGuardian/ggshield-action@4848e499be8c740d2d71526182c1343d577d7322
         uses: GitGuardian/ggshield-action@v1.20.0
         with:
-          args: ./
+          args: ggshield secret scan path ./
         env:
           GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
       - id: pub
