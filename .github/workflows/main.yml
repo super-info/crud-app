@@ -3,7 +3,7 @@ on:
   workflow_dispatch
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: k8s-runner
     outputs:
       file1: ${{ steps.pub.outputs.test}}
     steps:
@@ -18,7 +18,7 @@ jobs:
       - name: output
         run: echo "${{ toJSON(github) }}"i
   test:
-    runs-on: self-hosted
+    runs-on: k8s-runner
     needs: build
     steps:
       - name: info
