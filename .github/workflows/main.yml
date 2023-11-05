@@ -7,9 +7,6 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
-      pull-requests: write
     outputs:
       file1: ${{ steps.pub.outputs.test}}
     steps:
@@ -43,6 +40,7 @@ jobs:
   # uses: EnricoMi/publish-unit-test-result-action@ca89ad036b5fcd524c1017287fb01b5139908408
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with:
+          comment_mode: off
           files: |
             target/surefire-reports/TEST-*.xml
       
