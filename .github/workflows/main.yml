@@ -1,6 +1,7 @@
 #Springboot-jdk-17
 name: main-workflow
-on: [push, workflow_dispatch]
+on: 
+  workflow_dispatch
 env:
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
@@ -25,16 +26,14 @@ jobs:
         run: |
           pipx install ggshield
           ggshield secret scan ci
-        continue-on-error: true
-
-    
 
     # Vulnerability Check using Snyk Code
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}      
-      
+      - name: Snyk
+        run: |
+          npm install snyk -g
+          snyk auth ${{ secrets.SNYK_TOKEN }}
+          chmod -R 777 ./mvnw
+          snyk test --sarif-file-output=snyk.sarif --severity-threshold=high
 
     # Analysing the Source Code using SonarCloud
 
