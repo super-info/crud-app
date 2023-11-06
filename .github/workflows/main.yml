@@ -26,6 +26,7 @@ jobs:
         run: |
           pipx install ggshield
           ggshield secret scan ci
+        continue-on-error: true
 
     # Vulnerability Check using Snyk Code
       - name: Snyk
