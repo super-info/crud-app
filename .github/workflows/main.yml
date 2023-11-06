@@ -50,6 +50,8 @@ jobs:
           cd site
           ls -la jacoco
     # Vulnerability Check using Snyk Code
+      - run: |
+          chmod +x ./mvnw
       - name: Snyk
         uses: snyk/actions/maven@master
         env:
