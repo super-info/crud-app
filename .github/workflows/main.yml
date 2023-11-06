@@ -25,21 +25,14 @@ jobs:
       - name: GitGuardian Shield Action          
         run: |
           pipx install ggshield
-          ggshield secret scan path --recursive ./
-      - id: pub
-        run: echo "test=hello-world" >> $GITHUB_OUTPUT
-      - name: output
-        run: echo "${{ toJSON(github) }}"
-    
+          ggshield secret scan path --recursive ./ -y
+
     # Vulnerability Check using Snyk Code
       - name: Snyk
-        uses: snyk/actions/maven@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: |
-            --sarif-file-output: snyk.sarif 
-            --severity-threshold: medium
+        run: |
+          npm install snyk@latest -g
+          snyk auth ${{ secrets.SNYK_TOKEN }}
+          snyk test --sarif-file-output=snyk.sarif --severity-threshold=high
 
     # Analysing the Source Code using SonarCloud
 
