@@ -25,7 +25,7 @@ jobs:
       - name: GitGuardian Shield Action          
         run: |
           pipx install ggshield
-          ggshield secret scan repo ${{ github.repository }}
+          ggshield secret scan repo ${{ github.repositoryUrl }}
 
     
 
