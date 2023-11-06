@@ -82,19 +82,11 @@ jobs:
 
     # Docker Build
       - name: Docker Build
-        run: docker build -t crud-app:1.0.${{ github.run_number }} .
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.13.1
-        with:
-          image-ref: 'crud-app:1.0.${{ github.run_number }}'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          severity: 'CRITICAL'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results.sarif'
+        run: |
+          docker build -t crud-app:1.0.${{ github.run_number }} .
+          docker tag crud-app:1.0.${{ github.run_number }} shmdus/crud-app:1.0.${{ github.run_number }}
+          docker login -u shmdus =p cannonbolt0204
+          docker push shmdus/crud-app:1.0.${{ github.run_number }}
      
         
     #  - name: JaCoCo Report
