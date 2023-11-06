@@ -93,7 +93,7 @@ jobs:
           docker push shmdus/crud-app:1.0.${{ github.run_number }}
     # Pushing Image to PRIVATE ARFTIFACT REGISTRY
       - name: Google Artifact Registry Build & Push
-        uses: piotrkrusinski/action-google-artifact-registry@v1.0
+        uses: piotr-krusinski/action-google-artifact-registry@v1.0
         with:
           google_project_id: ${{vars.GOOGLE_PROJECT_ID}}
           google_artifact_registry_region: us-central
