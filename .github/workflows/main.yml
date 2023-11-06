@@ -86,7 +86,9 @@ jobs:
       #       -Dsonar.tests=tests/
       #       -Dsonar.verbose=true
       - name: Analyze with SonarCloud
-        run: ./mvnw -B verify sonar:sonar -Dsonar.projectKey=super-info -Dsonar.organization=super-info -Dsonar.host.url=https://sonarcloud.io -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/target/site/jacoco/jacoco.xml
+        run: |
+          chmod +x ./mvnw
+          ./mvnw -B verify sonar:sonar -Dsonar.projectKey=super-info -Dsonar.organization=super-info -Dsonar.host.url=https://sonarcloud.io -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/target/site/jacoco/jacoco.xml
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
      
