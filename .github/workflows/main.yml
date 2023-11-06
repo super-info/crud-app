@@ -36,7 +36,7 @@ jobs:
         uses: actions/setup-java@v3.13.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '11'
       - name: package
         run: mvn clean package
       - name: file check
@@ -53,7 +53,7 @@ jobs:
       - run: |
           chmod +x ./mvnw
       - name: Snyk
-        uses: snyk/actions/maven-3-jdk-17@master
+        uses: snyk/actions/maven@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
