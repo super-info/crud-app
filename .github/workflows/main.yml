@@ -7,6 +7,7 @@ env:
   DB_PASS: ${{ secrets.DB_PASS }}
   DB_HOST: ${{ secrets.DB_HOST }}
   DB_NAME: ${{ secrets.DB_NAME }}
+  DB_PORT: ${{ secrets.DB_PORT }}
   GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
 jobs:
   build:
