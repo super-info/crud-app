@@ -14,13 +14,15 @@ jobs:
     outputs:
       file1: ${{ steps.pub.outputs.test}}
     steps:
-      - name: Checkout
+    # Checking out the code
+      - name: Checkout                            
         uses: actions/checkout@v4.1.1
       - name: echo
         run: |
           ls -la
           echo "passed"
-      - name: GitGuardian Shield Action
+    # Scanning for secret detection
+      - name: GitGuardian Shield Action          
         run: |
           pipx install ggshield
           ggshield secret scan path --recursive ./
@@ -28,6 +30,18 @@ jobs:
         run: echo "test=hello-world" >> $GITHUB_OUTPUT
       - name: output
         run: echo "${{ toJSON(github) }}"
+    
+    # Vulnerability Check using Snyk Code
+      - name: Snyk
+        uses: snyk/actions@0.4.0
+        with:
+          args: |
+            --sarif-file-output: snyk.sarif
+            --severity-threshold: medium
+
+    # Analysing the Source Code using SonarCloud
+
+    # Setting up Java Environment
       - name: Setup Java JDK
         uses: actions/setup-java@v3.13.0
         with:
@@ -45,9 +59,8 @@ jobs:
           cd target
           cd site
           ls -la jacoco
+      # Publishing the test results to the Job Summary
       - name: Publish Test Results
-  # You may pin to the exact commit or the version.
-  # uses: EnricoMi/publish-unit-test-result-action@ca89ad036b5fcd524c1017287fb01b5139908408
         uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with:
           comment_mode: off
@@ -61,16 +74,3 @@ jobs:
     #      token: ${{secrets.TOKEN_REPO}}
     #      min-coverage-overall: 60
       
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: info
-        run: echo ${{needs.build.outputs.file1}}
-      - name: display
-        id: show
-        run: echo "speed=fast"  >> $GITHUB_OUTPUT
-      - name: out
-        run: echo ${{steps.show.outputs.speed}}
-      - name: checking
-        run: ls -la
