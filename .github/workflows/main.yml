@@ -101,7 +101,7 @@ jobs:
           google_artifact_registry_name: github-ci
           service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
           dockerfile: ./
-          image_name: ${{APP_NAME}}
+          image_name: $APP_NAME
           tag_list: 1.0.${{ github.run_number }}
         
      
