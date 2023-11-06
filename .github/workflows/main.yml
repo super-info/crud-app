@@ -25,13 +25,17 @@ jobs:
       - name: GitGuardian Shield Action          
         run: |
           pipx install ggshield
-          ggshield secret scan path --recursive ./ -y
+          ggshield secret scan repo
+
+    
 
     # Vulnerability Check using Snyk Code
+      
       - name: Snyk
         run: |
-          npm install snyk@latest -g
+          npm i -g snyk
           snyk auth ${{ secrets.SNYK_TOKEN }}
+          mvn dependency:tree -DoutputType=dot
           snyk test
 
     # Analysing the Source Code using SonarCloud
