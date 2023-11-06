@@ -30,13 +30,14 @@ jobs:
 
 
     # Analysing the Source Code using SonarCloud
-
+    
     # Setting up Java Environment
       - name: Setup Java JDK
         uses: actions/setup-java@v3.13.0
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '17'
+      - run: echo "JAVA_HOME=${{ steps.setup-java.outputs.java-home }}" >> $GITHUB_ENV
       - name: package
         run: mvn clean package
       - name: file check
@@ -50,8 +51,6 @@ jobs:
           cd site
           ls -la jacoco
     # Vulnerability Check using Snyk Code
-      - run: |
-          chmod +x ./mvnw
       - name: Snyk
         uses: snyk/actions/maven@master
         env:
