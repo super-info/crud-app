@@ -1,7 +1,6 @@
 #Springboot-jdk-17
 name: main-workflow
-on: 
-  workflow_dispatch
+on: [push, workflow_dispatch]
 env:
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
@@ -25,18 +24,16 @@ jobs:
       - name: GitGuardian Shield Action          
         run: |
           pipx install ggshield
-          ggshield secret scan repo ${{ github.repositoryUrl }}
+          ggshield secret scan ci 
 
     
 
     # Vulnerability Check using Snyk Code
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}      
       
-      - name: Snyk
-        run: |
-          npm i -g snyk
-          snyk auth ${{ secrets.SNYK_TOKEN }}
-          chmod 777 -R mvnw
-          snyk test
 
     # Analysing the Source Code using SonarCloud
 
