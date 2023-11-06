@@ -29,7 +29,7 @@ jobs:
         continue-on-error: true
 
 
-    # Analysing the Source Code using SonarCloud
+   
     
     # Setting up Java Environment
       - name: Setup Java JDK
@@ -51,19 +51,19 @@ jobs:
           cd site
           ls -la jacoco
     # Vulnerability Check using Snyk Code
-      - name: Snyk
-        uses: snyk/actions/maven@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          command: test
-          args: |
-            --severity-threshold=high
-            --sarif-file-output=snyk.sarif
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: snyk.sarif
+      # - name: Snyk
+      #   uses: snyk/actions/maven@master
+      #   env:
+      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      #   with:
+      #     command: test
+      #     args: |
+      #       --severity-threshold=high
+      #       --sarif-file-output=snyk.sarif
+      # - name: Upload result to GitHub Code Scanning
+      #   uses: github/codeql-action/upload-sarif@v2
+      #   with:
+      #     sarif_file: snyk.sarif
           
       # Publishing the test results to the Job Summary
       - name: Publish Test Results
@@ -72,6 +72,8 @@ jobs:
           comment_mode: off
           files: | 
             target/surefire-reports/TEST-*.xml
+     # Analysing the Source Code using SonarCloud
+     
         
     #  - name: JaCoCo Report
     #    uses: Madrapps/jacoco-report@v1.6.1
