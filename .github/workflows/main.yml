@@ -85,7 +85,7 @@ jobs:
         run: |
           docker build -t crud-app:1.0.${{ github.run_number }} .
           docker tag crud-app:1.0.${{ github.run_number }} shmdus/crud-app:1.0.${{ github.run_number }}
-          docker login -u shmdus =p cannonbolt0204
+          docker login -u shmdus -p cannonbolt0204
           docker push shmdus/crud-app:1.0.${{ github.run_number }}
      
         
