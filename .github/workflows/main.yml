@@ -73,6 +73,18 @@ jobs:
           files: | 
             target/surefire-reports/TEST-*.xml
      # Analysing the Source Code using SonarCloud
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@v2.0.2
+        with:
+          projectBaseDir: .
+          args: >
+            -Dsonar.organization=super-info
+            -Dsonar.projectKey=super-info_curd-app
+            -Dsonar.coverage.jacoco.xmlReportPaths=/target/site/jacoco/*.xml
+            -Dsonar.sources=lib/
+            -Dsonar.test.exclusions=tests/**
+            -Dsonar.tests=tests/
+            -Dsonar.verbose=true    
      
         
     #  - name: JaCoCo Report
