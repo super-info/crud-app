@@ -32,7 +32,7 @@ jobs:
         run: |
           npm install snyk@latest -g
           snyk auth ${{ secrets.SNYK_TOKEN }}
-          snyk test --sarif-file-output=snyk.sarif --severity-threshold=high
+          snyk test
 
     # Analysing the Source Code using SonarCloud
 
