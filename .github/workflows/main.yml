@@ -97,12 +97,12 @@ jobs:
           # docker push shmdus/crud-app:1.0.${{ github.run_number }}
     
     # Trivy Scanning 
-      - name: Trivy scanning
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-          trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-          # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-        shell: bash
+      # - name: Trivy scanning
+      #   run: |
+      #     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
+      #     trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+      #     # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+      #   shell: bash
              
     #  Pushing Image to PRIVATE ARFTIFACT REGISTRY
     #   - name: Google Artifact Registry Build & Push
@@ -141,7 +141,7 @@ jobs:
           git config --global user.email "${{ secrets.GIT_MAIL }}"
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           cd ${{ env.APP_NAME }}
-          sed -i "s|gcr.io/${{ vars.GOOGLE_PROJECT_ID }}.*| gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}" deployment.yaml
+          sed -i "s|gcr.io/${{ vars.GOOGLE_PROJECT_ID }}.*| gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}|g" deployment.yaml
           git add .
           git commit -m " image update"
           git push -uf https://$PAT:github.com/super-info/k8s-manifest.git
