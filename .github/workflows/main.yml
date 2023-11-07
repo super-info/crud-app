@@ -109,7 +109,16 @@ jobs:
     #       dockerfile: ./
     #       image_name: $APP_NAME
     #       tag_list: 1.0.${{ github.run_number }}
-    
+       
+       # Trivy Scanning 
+      - name: Trivy scanning
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
+          # sudo mv /usr/local/bin/trivy
+          trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+        shell: bash
+
+      
       - name: Push Docker GCR
         uses: RaccoonDev/push-docker-gcr@v1
         env:
@@ -120,13 +129,7 @@ jobs:
           image_name: ${{ env.APP_NAME }}
           image_tag: 1.0.${{ github.run_number }}
 
-     # Trivy Scanning 
-      - name: Trivy scanning
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-          # sudo mv /usr/local/bin/trivy
-          trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-        shell: bash
+    
           
         
      
