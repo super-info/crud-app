@@ -9,7 +9,7 @@ env:
   DB_NAME: ${{ secrets.DB_NAME }}
   DB_PORT: ${{ secrets.DB_PORT }}
   GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
-  APP_NAME: $(basename ${{ github.repository }})
+  APP_NAME: ${{ github.repository }})
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,9 +25,7 @@ jobs:
         run: |
           ls -la
           echo "passed"
-          echo $APP_NAME
-          echo "$(basename ${{ github.repository }})"
-          echo "${{ github.repository }}
+          
     # Scanning for secret detection
       - name: GitGuardian Shield Action          
         run: |
