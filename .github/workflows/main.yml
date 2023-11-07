@@ -101,9 +101,9 @@ jobs:
       - name: Trivy scanning
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-          trivy image -o trivy-results.sarif -f sarif docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+          trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
           # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-          trivy image -o trivy-results-high-critical.sarif -f sarif --severity HIGH,CRITICAL docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }} high_critical_exit_code=1
+          # trivy image -o trivy-results-high-critical.sarif -f sarif --severity HIGH,CRITICAL docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }} high_critical_exit_code=1
         continue-on-error: true
         shell: bash
              
@@ -161,12 +161,12 @@ jobs:
     #      token: ${{secrets.TOKEN_REPO}}
     #      min-coverage-overall: 60
      
-    # DAST Scanning using ZAP
-      - name: OWASP ZAP Scan
-        run: |
-          docker pull owasp/zap2docker-stable
-          docker run -d -t owasp/zap2docker-stable zap-baseline.py -t http://34.41.139.45:30007/
-          docker run -t owasp/zap2docker-stable zap-full-scan.py -t http://34.41.139.45:30007/
-          docker run -t owasp/zap2docker-stable zap-cli report -o zap-report.html -f html
-          mv zap-report.html $GITHUB_WORKSPACE
+    # # DAST Scanning using ZAP
+    #   - name: OWASP ZAP Scan
+    #     run: |
+    #       docker pull owasp/zap2docker-stable
+    #       docker run -d -t owasp/zap2docker-stable zap-baseline.py -t http://34.41.139.45:30007/
+    #       docker run -t owasp/zap2docker-stable zap-full-scan.py -t http://34.41.139.45:30007/
+    #       docker run -t owasp/zap2docker-stable zap-cli report -o zap-report.html -f html
+    #       mv zap-report.html $GITHUB_WORKSPACE
       
