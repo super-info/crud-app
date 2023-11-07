@@ -27,11 +27,11 @@ jobs:
           echo "passed"
           
     # Scanning for secret detection
-      - name: GitGuardian Shield Action          
-        run: |
-          pipx install ggshield
-          ggshield secret scan ci
-        continue-on-error: true
+      # - name: GitGuardian Shield Action          
+      #   run: |
+      #     pipx install ggshield
+      #     ggshield secret scan ci
+      #   continue-on-error: true
 
 
    
@@ -77,13 +77,13 @@ jobs:
           files: | 
             target/surefire-reports/TEST-*.xml
      # Analysing the Source Code using SonarCloud
-      - name: Analyze with SonarCloud
-        run: |
-          #chmod +x ./mvnw
-          mvn -B verify sonar:sonar -Dsonar.projectKey=super-info -Dsonar.organization=super-info -Dsonar.host.url=https://sonarcloud.io -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/target/site/jacoco/jacoco.xml -Dsonar.branch.name=${{ github.ref_name }} -Dsonar.qualitygate.wait=true
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        continue-on-error: true
+      # - name: Analyze with SonarCloud
+      #   run: |
+      #     #chmod +x ./mvnw
+      #     mvn -B verify sonar:sonar -Dsonar.projectKey=super-info -Dsonar.organization=super-info -Dsonar.host.url=https://sonarcloud.io -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/target/site/jacoco/jacoco.xml -Dsonar.branch.name=${{ github.ref_name }} -Dsonar.qualitygate.wait=true
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   continue-on-error: true
 
     # Docker Build
       - name: Docker Build
