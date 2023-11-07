@@ -97,15 +97,25 @@ jobs:
           # docker login -u shmdus -p cannonbolt0204
           # docker push shmdus/crud-app:1.0.${{ github.run_number }}
     
-    # Trivy Scanning 
-      - name: Trivy scanning
-        run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-          trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-          # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-          # trivy image -o trivy-results-high-critical.sarif -f sarif --severity HIGH,CRITICAL docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }} high_critical_exit_code=1
-        continue-on-error: true
-        shell: bash
+    # # Trivy Scanning 
+    #   - name: Trivy scanning
+    #     run: |
+    #       curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
+    #       trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+    #       # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+    #       # trivy image -o trivy-results-high-critical.sarif -f sarif --severity HIGH,CRITICAL docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }} high_critical_exit_code=1
+    #     continue-on-error: true
+    #     shell: bash
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'docker.io/${{ env.APP_NAME }}:${{ github.run_number }}'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
              
     #  Pushing Image to PRIVATE ARFTIFACT REGISTRY
     #   - name: Google Artifact Registry Build & Push
