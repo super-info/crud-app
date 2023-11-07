@@ -95,6 +95,14 @@ jobs:
           #docker tag ${{ env.APP_NAME }}:1.0.${{ github.run_number }} ${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
           # docker login -u shmdus -p cannonbolt0204
           # docker push shmdus/crud-app:1.0.${{ github.run_number }}
+    
+     # Trivy Scanning 
+      - name: Trivy scanning
+        run: |
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
+          sudo mv /usr/local/bin/trivy
+          trivy image gcr.io/${{ env.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
+        shell: bash
           
           
     #  Pushing Image to PRIVATE ARFTIFACT REGISTRY
