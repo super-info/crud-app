@@ -139,6 +139,7 @@ jobs:
         run: |
           ls -la
           git clone https://${{ secrets.GIT_TOKEN }}@github.com/super-info/k8s-manifest.git
+          ls -la
           git config --global user.email "${{ secrets.GIT_MAIL }}"
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           #git remote add origin https://$PAT@github.com/super-info/k8s-manifest.git
