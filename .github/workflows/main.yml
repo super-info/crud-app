@@ -128,18 +128,18 @@ jobs:
         # Google Container Registry Host
           image_name: ${{ env.APP_NAME }}
           image_tag: 1.0.${{ github.run_number }}
-    # Update Manifest File
-      # - name: Checkout
-      #   uses: actions/checkout@v4.1.1
-      #   with:
-      #     repository: 'super-info/k8s-manifest'
+    #Update Manifest File
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
+        with:
+          repository: 'super-info/k8s-manifest'
+          token: ${{ secrets.GIT_TOKEN }}
       - name: Update image
         env:
           PAT: ${{ secrets.GIT_TOKEN }}
         run: |
           ls -la
-          git clone https://${{ secrets.GIT_TOKEN }}@github.com/super-info/k8s-manifest.git
-          ls -la
+          #git clone https://${{ secrets.GIT_TOKEN }}@github.com/super-info/k8s-manifest.git
           git config --global user.email "${{ secrets.GIT_MAIL }}"
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           #git remote add origin https://$PAT@github.com/super-info/k8s-manifest.git
