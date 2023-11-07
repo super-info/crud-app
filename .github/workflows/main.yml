@@ -91,18 +91,29 @@ jobs:
           docker tag crud-app:1.0.${{ github.run_number }} shmdus/crud-app:1.0.${{ github.run_number }}
           docker login -u shmdus -p cannonbolt0204
           docker push shmdus/crud-app:1.0.${{ github.run_number }}
-    # Pushing Image to PRIVATE ARFTIFACT REGISTRY
-      - name: Google Artifact Registry Build & Push
-        uses: piotr-krusinski/action-google-artifact-registry@v1.0
+    #  Pushing Image to PRIVATE ARFTIFACT REGISTRY
+    #   - name: Google Artifact Registry Build & Push
+    #     uses: piotr-krusinski/action-google-artifact-registry@v1.0
+    #     with:
+    #       google_project_id: ${{vars.GOOGLE_PROJECT_ID}}
+    #       google_artifact_registry_region: us-central
+    #       google_artifact_registry_hostname: gcr.io
+    #       google_artifact_registry_name: github-ci
+    #       service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+    #       dockerfile: ./
+    #       image_name: $APP_NAME
+    #       tag_list: 1.0.${{ github.run_number }}
+    
+      - name: Push Docker GCR
+        uses: RaccoonDev/push-docker-gcr@v1
+        env:
+          GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+          GOOGLE_PROJECT_ID: ${{ secrets.GOOGLE_PROJECT_ID }} 
         with:
-          google_project_id: ${{vars.GOOGLE_PROJECT_ID}}
-          google_artifact_registry_region: us-central
-          google_artifact_registry_hostname: gcr.io
-          google_artifact_registry_name: github-ci
-          service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-          dockerfile: ./
+        # Google Container Registry Host
           image_name: $APP_NAME
-          tag_list: 1.0.${{ github.run_number }}
+          image_tag: 1.0.${{ github.run_number }}
+          
         
      
         
