@@ -100,7 +100,7 @@ jobs:
       - name: Trivy scanning
         run: |
           curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-          trivy image ${{ env.APP_NAME }}:1.0.${{ github.run_number }}}
+          trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}}
           # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
         shell: bash
              
