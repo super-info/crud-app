@@ -25,6 +25,9 @@ jobs:
         run: |
           ls -la
           echo "passed"
+          echo $APP_NAME
+          echo "$(basename ${{ github.repository }})"
+          echo "${{ github.repository }}
     # Scanning for secret detection
       - name: GitGuardian Shield Action          
         run: |
@@ -87,10 +90,13 @@ jobs:
     # Docker Build
       - name: Docker Build
         run: |
-          docker build -t crud-app:1.0.${{ github.run_number }} .
-          docker tag crud-app:1.0.${{ github.run_number }} shmdus/crud-app:1.0.${{ github.run_number }}
-          docker login -u shmdus -p cannonbolt0204
-          docker push shmdus/crud-app:1.0.${{ github.run_number }}
+          docker build -t crud-app:1.0.${{ github.run_number }}
+          docker tag crud-app:1.0.${{ github.run_number }} $APP_NAME:1.0.${{ github.run_number }}
+          # docker tag crud-app:1.0.${{ github.run_number }} $APP_NAME:1.0.${{ github.run_number }}
+          # docker login -u shmdus -p cannonbolt0204
+          # docker push shmdus/crud-app:1.0.${{ github.run_number }}
+          
+          
     #  Pushing Image to PRIVATE ARFTIFACT REGISTRY
     #   - name: Google Artifact Registry Build & Push
     #     uses: piotr-krusinski/action-google-artifact-registry@v1.0
