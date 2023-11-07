@@ -142,9 +142,10 @@ jobs:
           git config --global user.name "$GITHUB_REPOSITORY_OWNER"
           cd ${{ env.APP_NAME }}
           sed -i "s|gcr.io/${{ vars.GOOGLE_PROJECT_ID }}.*| gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}|g" deployment.yaml
+          cat deployment.yaml
           git add .
           git commit -m "image update"
-          git push -uf https://$PAT:github.com/super-info/k8s-manifest.git
+          git push -uf https://$GITHUB_REPOSITORY_OWNER:$PAT@github.com/super-info/k8s-manifest.git
           
           
     #  - name: JaCoCo Report
