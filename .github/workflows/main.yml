@@ -1,185 +1,39 @@
 #Springboot-jdk-17
-name: main-workflow
-on: 
-  workflow_dispatch
+name: crud-app
+on: workflow_dispatch
 env:
   DB_USER: ${{ secrets.DB_USER }}
   DB_PASS: ${{ secrets.DB_PASS }}
   DB_HOST: ${{ secrets.DB_HOST }}
   DB_NAME: ${{ secrets.DB_NAME }}
   DB_PORT: ${{ secrets.DB_PORT }}
+permissions:
+   checks: write
+   security-events: write
+   pull-requests: write 
+
 jobs:
-  build:
+  settings:
     runs-on: ubuntu-latest
-    permissions:
-      checks: write
     outputs:
-      file1: ${{ steps.pub.outputs.test}}
+      appenv: ${{ steps.app.outputs.app-name }}
     steps:
-    # Checking out the code
-      - name: Checkout                            
-        uses: actions/checkout@v4.1.1
-      - name: echo
-        run: |
-          ls -la
-          echo "passed"
-          echo $APP_NAME
-          echo ${{ github.repository }}
-          echo "APP_NAME=$(basename ${{ github.repository }})" >> $GITHUB_ENV
-          echo ${{ env.APP_NAME }}
-          
-    # Scanning for secret detection
-      # - name: GitGuardian Shield Action
-      #   env:
-      #     GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}
-      #   run: |
-      #     pipx install ggshield
-      #     ggshield secret scan ci
-      #   continue-on-error: true
-
-
-   
-    
-    # Setting up Java Environment
-      - name: Setup Java JDK
-        uses: actions/setup-java@v3.13.0
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-      - name: package
-        run: mvn clean package
-      - name: file check
-        run: ls -la target
-      # - name: unit-test
-      #   run: | 
-      #     mvn test
-      #     ls -la
-      #     ls -la target
-      #     cd target
-      #     cd site
-      #     ls -la jacoco
-    # Vulnerability Check using Snyk Code
-      # - name: Snyk
-      #   uses: snyk/actions/maven@master
-      #   env:
-      #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      #   with:
-      #     command: test
-      #     args: |
-      #       --severity-threshold=high
-      #       --sarif-file-output=snyk.sarif
-      # - name: Upload result to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v2
-      #   with:
-      #     sarif_file: snyk.sarif
-          
-      # Publishing the test results to the Job Summary
-      # - name: Publish Test Results
-      #   uses: EnricoMi/publish-unit-test-result-action@v2.11.0
-      #   with:
-      #     comment_mode: off
-      #     files: | 
-      #       target/surefire-reports/TEST-*.xml
-     # Analysing the Source Code using SonarCloud
-      # - name: Analyze with SonarCloud
-      #   run: |
-      #     #chmod +x ./mvnw
-      #     mvn -B verify sonar:sonar -Dsonar.projectKey=super-info -Dsonar.organization=super-info -Dsonar.host.url=https://sonarcloud.io -Dsonar.coverage.jacoco.xmlReportPaths=${{ github.workspace }}/target/site/jacoco/jacoco.xml -Dsonar.branch.name=${{ github.ref_name }} -Dsonar.qualitygate.wait=true
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #   continue-on-error: true
-
-    # Docker Build
-      - name: Docker Build
-        run: |
-          docker build -t ${{ env.APP_NAME }}:1.0.${{ github.run_number }} .
-          #docker tag ${{ env.APP_NAME }}:1.0.${{ github.run_number }} ${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-          # docker login -u shmdus -p cannonbolt0204
-          # docker push shmdus/crud-app:1.0.${{ github.run_number }}
-    
-    # # Trivy Scanning 
-    #   - name: Trivy scanning
-    #     run: |
-    #       curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/master/contrib/install.sh | sh -s -- -b /usr/local/bin
-    #       trivy image docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-    #       # trivy image gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}
-    #       # trivy image -o trivy-results-high-critical.sarif -f sarif --severity HIGH,CRITICAL docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }} high_critical_exit_code=1
-    #     continue-on-error: true
-    #     shell: bash
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: 'docker.io/${{ env.APP_NAME }}:1.0.${{ github.run_number }}'
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v2
-        with:
-          sarif_file: 'trivy-results.sarif'
-             
-    #  Pushing Image to PRIVATE ARFTIFACT REGISTRY
-    #   - name: Google Artifact Registry Build & Push
-    #     uses: piotr-krusinski/action-google-artifact-registry@v1.0
-    #     with:
-    #       google_project_id: ${{vars.GOOGLE_PROJECT_ID}}
-    #       google_artifact_registry_region: us-central
-    #       google_artifact_registry_hostname: gcr.io
-    #       google_artifact_registry_name: github-ci
-    #       service_account_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
-    #       dockerfile: ./
-    #       image_name: $APP_NAME
-    #       tag_list: 1.0.${{ github.run_number }}
-   
-    # Docker Push
-    
-      - name: Push Docker GCR
-        uses: RaccoonDev/push-docker-gcr@v1
-        env:
-          GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
-          GOOGLE_PROJECT_ID: ${{ vars.GOOGLE_PROJECT_ID }}
-        with:
-        # Google Container Registry Host
-          image_name: ${{ env.APP_NAME }}
-          image_tag: 1.0.${{ github.run_number }}
-    #Update Manifest File
-      - name: Checkout
-        uses: actions/checkout@v4.1.1
-        with:
-          repository: 'super-info/k8s-manifest'
-          token: ${{ secrets.GIT_TOKEN }}
-      - name: Update image
-        env:
-          PAT: ${{ secrets.GIT_TOKEN }}
-        run: |
-          ls -la
-          #git clone https://${{ secrets.GIT_TOKEN }}@github.com/super-info/k8s-manifest.git
-          git config --global user.email "${{ secrets.GIT_MAIL }}"
-          git config --global user.name "$GITHUB_REPOSITORY_OWNER"
-          #git remote add origin https://$PAT@github.com/super-info/k8s-manifest.git
-          cd ${{ env.APP_NAME }}
-          sed -i "s|gcr.io/${{ vars.GOOGLE_PROJECT_ID }}.*| gcr.io/${{ vars.GOOGLE_PROJECT_ID }}/${{ env.APP_NAME }}:1.0.${{ github.run_number }}|g" deployment.yaml
-          cat deployment.yaml
-          git add .
-          git commit -m "image update"
-          git push -uf origin
-          
-          
-    #  - name: JaCoCo Report
-    #    uses: Madrapps/jacoco-report@v1.6.1
-    #    with:
-    #      paths: target/site/jacoco/jacoco.xml
-    #      token: ${{secrets.TOKEN_REPO}}
-    #      min-coverage-overall: 60
-     
-    # # DAST Scanning using ZAP
-   
-      - name: ZAP Scan
-        uses: zaproxy/action-full-scan@v0.8.0
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
-          target: 'http://34.41.139.45:30007/'
-          rules_file_name: '.zap/rules.tsv'
-          cmd_options: '-a'
+       - name: setting env
+         id: app
+         run: echo "app-name=$(basename ${{ github.repository }})"
        
+  CICD:
+    needs: settings
+    uses: super-info/cicd-reusable/.github/workflows/springboot-jdk-17.yaml@main
+    with:
+      google_project_id: ${{ vars.GOOGLE_PROJECT_ID }}
+      #tag: ${{ github.run_number }}
+      app_name: ${{needs.outputs.appenv}}
+    secrets: inherit     
       
+    # secrets:
+    #   gitguradian_api_key: ${{ secrets.GITGUARDIAN_API_KEY }}
+    #   sonar_token: ${{ secrets.SONAR_TOKEN }}
+    #   git_token: ${{ secrets.GIT_TOKEN }}
+    #   git_mail: ${{ secrets.GIT_MAIL }}
+    #   google_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
