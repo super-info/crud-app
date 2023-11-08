@@ -1,6 +1,6 @@
 #Springboot-jdk-17
 name: crud-app
-on: workflow_dispatch
+on: [workflow_dispatch, push]
 permissions:
    checks: write
    security-events: write
