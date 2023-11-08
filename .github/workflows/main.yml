@@ -1,12 +1,6 @@
 #Springboot-jdk-17
 name: crud-app
 on: workflow_dispatch
-env:
-  DB_USER: ${{ secrets.DB_USER }}
-  DB_PASS: ${{ secrets.DB_PASS }}
-  DB_HOST: ${{ secrets.DB_HOST }}
-  DB_NAME: ${{ secrets.DB_NAME }}
-  DB_PORT: ${{ secrets.DB_PORT }}
 permissions:
    checks: write
    security-events: write
