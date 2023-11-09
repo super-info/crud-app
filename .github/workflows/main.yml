@@ -33,9 +33,9 @@ jobs:
       app_name: ${{needs.outputs.appenv}}
     secrets: inherit     
       
-    # secrets:
-    #   gitguradian_api_key: ${{ secrets.GITGUARDIAN_API_KEY }}
-    #   sonar_token: ${{ secrets.SONAR_TOKEN }}
-    #   git_token: ${{ secrets.GIT_TOKEN }}
-    #   git_mail: ${{ secrets.GIT_MAIL }}
-    #   google_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+    ##secrets:
+      # gitguradian_api_key: ${{ secrets.GITGUARDIAN_API_KEY }}
+      # sonar_token: ${{ secrets.SONAR_TOKEN }}
+      # git_token: ${{ secrets.GIT_TOKEN }}
+      # git_mail: ${{ secrets.GIT_MAIL }}
+      # google_service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
