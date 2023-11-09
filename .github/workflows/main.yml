@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - dev-test
+      - dev
   pull_request:
     branches:
       - master
