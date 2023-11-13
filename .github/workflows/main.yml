@@ -2,13 +2,9 @@
 name: crud-app
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
   pull_request:
-    # types: [closed]
-    # branches:
-    #   - master
+    branches:
+       - master
    
 permissions:
    checks: write
@@ -25,7 +21,7 @@ jobs:
   #        id: app
   #        run: echo "app-name=$(basename ${{ github.repository }})"
        
-  CICD:
+  CI:
     uses: super-info/cicd-reusable/.github/workflows/springboot-jdk-17.yaml@main
     # with:
     #   google_project_id: ${{ vars.GOOGLE_PROJECT_ID }}
