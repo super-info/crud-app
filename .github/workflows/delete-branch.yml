@@ -1,0 +1,9 @@
+name: delete branch on close pr
+on: 
+  pull_request:
+    types: [closed]
+  
+jobs:
+  clean:
+    uses: super-info/.github/workflows/delete-merged-config.yml@main
+    secrets: inherit  
