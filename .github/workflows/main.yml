@@ -2,11 +2,11 @@
 name: crud-app
 on:
   workflow_dispatch:
-  # push:
-  #   branches:
-  #     - master
+  push:
+    branches:
+      - master
   pull_request:
-    types: [closed]
+    # types: [closed]
     # branches:
     #   - master
    
