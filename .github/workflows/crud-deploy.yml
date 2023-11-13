@@ -12,5 +12,5 @@ on:
 
 jobs:
   CD:
-    uses: super-info/cicd-reusable/.github/workflows/deploy.yaml@main
+    uses: super-info/cicd-reusable/.github/workflows/deploy.yml@main
     secrets: inherit
