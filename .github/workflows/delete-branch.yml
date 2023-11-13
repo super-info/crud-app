@@ -1,7 +1,7 @@
 name: delete branch on close pr
 on: 
   pull_request:
-    types: [closed]
+    types: closed
   
 jobs:
   clean:
