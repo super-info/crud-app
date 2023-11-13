@@ -1,0 +1,16 @@
+name: crud-app
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+   
+# permissions:
+#    checks: write
+#    security-events: write
+#    pull-requests: write 
+
+jobs:
+  CD:
+    uses: super-info/cicd-reusable/.github/workflows/deploy.yaml@main
+    secrets: inherit
