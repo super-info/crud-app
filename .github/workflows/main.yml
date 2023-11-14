@@ -22,7 +22,7 @@ jobs:
   #        run: echo "app-name=$(basename ${{ github.repository }})"
        
   CI:
-    uses: super-info/cicd-reusable/.github/workflows/springboot-jdk-17.yaml@main
+    uses: super-info/cicd-reusable/.github/workflows/springboot-jdk-17.yaml@dev
     # with:
     #   google_project_id: ${{ vars.GOOGLE_PROJECT_ID }}
     #   #tag: ${{ github.run_number }}
