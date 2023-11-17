@@ -3,7 +3,6 @@
 Spring Boot CRUD Web application with Pagination and Sorting features using Spring Boot, ThymeLeaf, Spring Data JPA, Hibernate, MySQL database
 ### Tutorial - Spring Boot CRUD Web Application with Thymeleaf, Spring MVC, Spring Data JPA, Hibernate, MySQL
 https://www.javaguides.net/2020/05/spring-boot-crud-web-application-with-thymeleaf.html
-
 ### YouTube Video - Spring Boot CRUD Web Application with Thymeleaf, Spring MVC, Spring Data JPA, Hibernate, MySQL
 https://youtu.be/_5sAmaRJd2c
 
